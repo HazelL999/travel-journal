@@ -15,6 +15,9 @@ body{min-height:100vh;background:#faf8f5;color:#2c2418;font-family:'Inter',sans-
 .header-logo span{color:#b8965a;font-style:italic}
 .header-sub{font-size:11px;color:#9a9080;letter-spacing:0.5px}
 .header-right{display:flex;align-items:center;gap:10px}
+.lang-btn{font-size:10px;padding:4px 8px;min-width:36px;text-align:center;border:1px solid #d4cec4;border-radius:4px;background:#fff;color:#4a4035;cursor:pointer;transition:all .2s;font-family:'Inter',sans-serif;line-height:1}
+.lang-btn:hover{background:#f0ece6}
+.lang-btn.active{background:#b8965a;color:#fff;border-color:#b8965a}
 .btn{font-family:'Inter',sans-serif;font-size:12px;padding:7px 16px;border:1px solid #d4cec4;border-radius:6px;background:#fff;color:#4a4035;cursor:pointer;transition:all .25s;line-height:1}
 .btn:hover{background:#f0ece6;border-color:#999;color:#2c2418}
 .btn-primary{background:#b8965a;color:#fff;border-color:#b8965a}
@@ -123,6 +126,22 @@ body{min-height:100vh;background:#faf8f5;color:#2c2418;font-family:'Inter',sans-
 .toolbar-btn.active{background:#f0ece6;border-color:#b8965a;color:#b8965a}
 .toolbar-divider{width:1px;background:#e8e3dc;margin:4px 2px}
 
+/* FOCUS PICKER */
+.focus-picker-overlay{position:fixed;inset:0;z-index:150;background:rgba(0,0,0,.3);opacity:0;pointer-events:none;transition:opacity .3s;display:flex;align-items:center;justify-content:center}
+.focus-picker-overlay.show{opacity:1;pointer-events:auto}
+.focus-picker-box{background:#fff;border-radius:16px;width:340px;max-width:85vw;max-height:60vh;overflow:hidden;box-shadow:0 16px 48px rgba(0,0,0,.12);transform:scale(.9);transition:transform .3s cubic-bezier(.34,1.56,.64,1)}
+.focus-picker-overlay.show .focus-picker-box{transform:scale(1)}
+.focus-picker-header{padding:16px 20px 12px;border-bottom:1px solid #f0ece6;display:flex;align-items:center;justify-content:space-between}
+.focus-picker-title{font-family:'Playfair Display',serif;font-size:16px;color:#2c2418}
+.focus-picker-close{background:none;border:none;font-size:16px;cursor:pointer;color:#9a9080;padding:4px}
+.focus-picker-list{padding:8px;overflow-y:auto;max-height:40vh}
+.focus-picker-item{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:10px;cursor:pointer;transition:background .2s;border-bottom:1px solid #f5f2ee}
+.focus-picker-item:last-child{border-bottom:none}
+.focus-picker-item:hover{background:#f5f2ee}
+.focus-picker-item .fp-flag{width:24px;height:16px;border-radius:2px;object-fit:cover}
+.focus-picker-item .fp-name{font-size:14px;color:#2c2418;flex:1}
+.focus-picker-item .fp-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
+
 /* PASSPORT */
 .passport-overlay{position:fixed;inset:0;z-index:200;background:rgba(0,0,0,.3);opacity:0;pointer-events:none;transition:opacity .4s;display:flex;align-items:center;justify-content:center}
 .passport-overlay.show{opacity:1;pointer-events:auto}
@@ -210,19 +229,49 @@ body{min-height:100vh;background:#faf8f5;color:#2c2418;font-family:'Inter',sans-
 #globeContainer canvas{width:100%!important;height:100%!important}
 
 @media(max-width:768px){.map-area.side{right:0;bottom:40vh}.journal{width:100%;right:-100%;top:auto;bottom:0;height:40vh;border-left:none;border-top:1px solid #e8e3dc;padding:14px}.journal.open{right:0}#mapSvg{padding:10px}.mario-card{width:92vw}.focus-bar{font-size:11px;padding:5px 10px 5px 14px}.passport-book{width:95vw;max-height:85vh}.ach-panel{width:95vw}.ach-grid{grid-template-columns:1fr}.postcard-card{width:95vw}.toolbar{bottom:12px;padding:5px 8px;gap:4px}.toolbar-btn{width:32px;height:32px;font-size:13px}}
+.card-item .flag img{width:22px!important}
+.lang-btn{font-size:10px;padding:4px 8px;min-width:36px;text-align:center;border:1px solid #d4cec4;border-radius:4px;background:#fff;color:#4a4035;cursor:pointer;transition:all .2s;font-family:'Inter',sans-serif;line-height:1}
+.lang-btn:hover{background:#f0ece6}
+.lang-btn.active{background:#b8965a;color:#fff;border-color:#b8965a}
+@media(max-width:640px){
+  .header{padding:6px 12px;flex-wrap:nowrap;gap:4px}
+  .header-logo{font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:120px}
+  .header-sub{font-size:9px;max-width:80px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;flex-shrink:1}
+  .header-right{gap:4px;flex-shrink:0}
+  .btn{font-size:10px;padding:4px 8px}
+  .btn-sm{padding:3px 8px;font-size:9px}
+  .lang-btn{font-size:9px;padding:3px 6px;min-width:30px}
+  .map-area{top:42px}
+  .map-area.side{right:0}
+  .focus-bar{top:48px;font-size:10px;padding:4px 10px 4px 14px}
+  #mapSvg{padding:8px}
+  .journal{width:100%!important;max-width:100%}
+  .passport-book{width:95vw}
+  .ach-panel{width:95vw}
+  .postcard-card{width:95vw}
+  .mario-card{width:90vw}
+  .passport-leaf{padding:14px}
+  .passport-leaf-flag img{width:36px!important}
+  .passport-leaf-stamp{width:56px;height:56px;font-size:20px}
+  .passport-nav{padding:6px 0 2px}
+  .ach-grid{grid-template-columns:1fr 1fr}
+  .card-item{width:calc(50% - 4px)}
+  .card-item .flag img{width:22px!important}
+}
 </style>
 </head>
 <body>
 
 <div class="header">
   <div class="header-left">
-    <div class="header-logo">&#x1F989; <span>Travel Journal</span></div>
+    <div class="header-logo" id="headerTitle">&#x1F989; <span>Travel Journal</span></div>
     <div class="header-sub" id="statusTip">点击地图上的国家</div>
   </div>
   <div class="header-right">
     <span style="font-size:11px;color:#9a9080" id="countDisplay">已探索 0 国</span>
-    <button class="btn" onclick="toggleGlobal()" id="globalBtn">&#x1F30D; 全局</button>
-    <button class="btn" onclick="toggleGlobe()" id="globeBtn" style="display:none">&#x1F310; 3D地球</button>
+    <button class="btn" onclick="toggleFocusPicker()" id="focusToggleBtn">&#x1F4CD; 聚焦模式</button>
+    <button class="btn" onclick="toggleGlobe()" id="globeBtn" style="display:none">&#x1F310; <span id="globeBtnText">3D地球</span></button>
+    <button class="lang-btn" id="langToggleBtn" onclick="toggleLang()">EN</button>
   </div>
 </div>
 
@@ -493,7 +542,7 @@ body{min-height:100vh;background:#faf8f5;color:#2c2418;font-family:'Inter',sans-
 <div class="focus-bar" id="focusBar">
   <span class="focus-dot" id="focusDot"></span>
   <span id="focusLabel">聚焦模式</span>
-  <button class="btn btn-sm" onclick="exitFocusMode()">&#x1F30D; 返回世界地图</button>
+  <button class="btn btn-sm" id="backWorld" onclick="exitFocusMode()">&#x1F30D; 返回世界地图</button>
 </div>
 
 <div class="mario-overlay" id="marioOverlay">
@@ -513,8 +562,8 @@ body{min-height:100vh;background:#faf8f5;color:#2c2418;font-family:'Inter',sans-
       <h2 id="marioTitle">目的地</h2>
       <div class="sub" id="marioSub">在世界上留下你的印记</div>
       <div style="display:flex;gap:8px">
-        <button class="btn btn-primary" onclick="enterCountry()" style="flex:1">&#x2708;&#xFE0F; 登录这片土地</button>
-        <button class="btn" onclick="closeMario()">稍后再说</button>
+        <button class="btn btn-primary" onclick="enterCountry()" id="enterBtn" style="flex:1">&#x2708;&#xFE0F; 登录这片土地</button>
+        <button class="btn" onclick="closeMario()" id="laterBtn">稍后再说</button>
       </div>
     </div>
   </div>
@@ -532,7 +581,7 @@ body{min-height:100vh;background:#faf8f5;color:#2c2418;font-family:'Inter',sans-
   </div>
   <div class="journal-scroll">
     <div class="slot">
-      <div class="slot-header"><span class="icon">&#x1F5BC;&#xFE0F;</span>照片 / 视频</div>
+      <div class="slot-header" id="photoHeader"><span class="icon">&#x1F5BC;&#xFE0F;</span>照片 / 视频</div>
       <div class="photo-grid" id="photoGrid">
         <div class="photo-cell" onclick="addPhoto(this)" id="pc0">+</div>
         <div class="photo-cell" onclick="addPhoto(this)" id="pc1">+</div>
@@ -540,12 +589,12 @@ body{min-height:100vh;background:#faf8f5;color:#2c2418;font-family:'Inter',sans-
       </div>
     </div>
     <div class="slot">
-      <div class="slot-header"><span class="icon">&#x1F517;</span>社交分享</div>
+      <div class="slot-header" id="socialHeader"><span class="icon">&#x1F517;</span>社交分享</div>
       <input class="link-input" id="linkInput1" placeholder="小红书链接..." oninput="saveCountryData()">
       <input class="link-input" id="linkInput2" placeholder="微博 / IG / 朋友圈..." oninput="saveCountryData()">
     </div>
     <div class="slot">
-      <div class="slot-header"><span class="icon">&#x1F3B5;</span>配乐</div>
+      <div class="slot-header" id="musicHeader"><span class="icon">&#x1F3B5;</span>配乐</div>
       <div class="music-input-wrap">
         <input class="music-input" id="musicInput" placeholder="粘贴音乐链接" oninput="saveCountryData();updateMusicLink()">
         <button class="btn" onclick="playMusic()" style="flex-shrink:0">&#x25B6;</button>
@@ -553,7 +602,7 @@ body{min-height:100vh;background:#faf8f5;color:#2c2418;font-family:'Inter',sans-
       <div class="music-link-view" id="musicLinkView"></div>
     </div>
     <div class="slot">
-      <div class="slot-header"><span class="icon">&#x270D;&#xFE0F;</span>旅行笔记</div>
+      <div class="slot-header" id="noteHeader"><span class="icon">&#x270D;&#xFE0F;</span>旅行笔记</div>
       <textarea class="note-area" id="noteArea" placeholder="当时的天气、遇到的人、尝到的味道……" oninput="saveCountryData()"></textarea>
     </div>
     <div style="margin-top:6px;display:flex;gap:6px">
@@ -562,13 +611,24 @@ body{min-height:100vh;background:#faf8f5;color:#2c2418;font-family:'Inter',sans-
   </div>
 </div>
 
+<!-- Focus picker -->
+<div class="focus-picker-overlay" id="focusPickerOverlay">
+  <div class="focus-picker-box">
+    <div class="focus-picker-header">
+      <span class="focus-picker-title" id="focusPickerTitle">&#x1F4CD; 选择国家</span>
+      <button class="focus-picker-close" onclick="toggleFocusPicker()">&#x2715;</button>
+    </div>
+    <div class="focus-picker-list" id="focusPickerList"></div>
+  </div>
+</div>
+
 <!-- Passport -->
 <div class="passport-overlay" id="passportOverlay">
   <div class="passport-book">
     <div class="passport-cover">
       <div>
-        <div class="passport-cover-title">&#x1F6C2; 数字护照</div>
-        <div class="passport-cover-sub">Digital Passport</div>
+        <div class="passport-cover-title" id="passportTitle">&#x1F6C2; 数字护照</div>
+        <div class="passport-cover-sub" id="passportSub">Digital Passport</div>
       </div>
       <button class="passport-close" onclick="closePassport()">&#x2715;</button>
     </div>
@@ -581,8 +641,8 @@ body{min-height:100vh;background:#faf8f5;color:#2c2418;font-family:'Inter',sans-
   <div class="ach-panel">
     <div class="ach-header">
       <div>
-        <div class="ach-header-title">&#x1F3C5; 成就勋章</div>
-        <div class="ach-header-sub">Achievements</div>
+        <div class="ach-header-title" id="achTitle">&#x1F3C5; 成就勋章</div>
+        <div class="ach-header-sub" id="achSub">Achievements</div>
       </div>
       <button class="ach-close" onclick="closeAchievements()">&#x2715;</button>
     </div>
@@ -599,14 +659,14 @@ body{min-height:100vh;background:#faf8f5;color:#2c2418;font-family:'Inter',sans-
       <button class="postcard-close-btn" onclick="closePostcard()">&#x2715;</button>
     </div>
     <div class="postcard-back">
-      <div class="note" id="postcardNote">旅行笔记将出现在这里...</div>
+      <div class="note" id="postcardNote"></div>
       <div class="stamp-row" id="postcardPhotos"></div>
       <div class="postcard-date" id="postcardDate">2026-07-08</div>
       <div class="postcard-share">
-        <button class="share-btn" style="background:#fff;border:1px solid #e8e3dc;color:#2c2418" onclick="closePostcard()">取消</button>
-        <button class="share-btn" style="background:#1DA1F2;color:#fff" onclick="sharePostcardTo('twitter')">&#x1D54F; 推特</button>
-        <button class="share-btn" style="background:#07C160;color:#fff" onclick="sharePostcardTo('wechat')">&#x1F4AC; 微信</button>
-        <button class="share-btn" style="background:#ff6b6b;color:#fff" onclick="sharePostcardTo('system')">&#x1F4E4; 分享</button>
+        <button class="share-btn" style="background:#fff;border:1px solid #e8e3dc;color:#2c2418" onclick="closePostcard()"><span data-i18n="cancel">取消</span></button>
+        <button class="share-btn" style="background:#1DA1F2;color:#fff" onclick="sharePostcardTo('twitter')">&#x1D54F; <span data-i18n="twitter">推特</span></button>
+        <button class="share-btn" style="background:#07C160;color:#fff" onclick="sharePostcardTo('wechat')">&#x1F4AC; <span data-i18n="wechat">微信</span></button>
+        <button class="share-btn" style="background:#ff6b6b;color:#fff" onclick="sharePostcardTo('system')">&#x1F4E4; <span data-i18n="share">分享</span></button>
       </div>
     </div>
   </div>
@@ -629,7 +689,7 @@ body{min-height:100vh;background:#faf8f5;color:#2c2418;font-family:'Inter',sans-
 
 <div class="card-panel" id="cardPanel">
   <div class="card-panel-header">
-    <div class="card-panel-title">&#x1F4CB; 我的旅行足迹</div>
+    <div class="card-panel-title" id="cardPanelTitle">&#x1F4CB; 我的旅行足迹</div>
     <button class="card-panel-close" onclick="toggleCardPanel()">&#x2715;</button>
   </div>
   <div class="card-grid" id="cardGrid"></div>
@@ -1968,7 +2028,6 @@ var visitedData = {};
 var currentCountry = null;
 var currentCode = null;
 var isFocusMode = false;
-var isGlobalMode = false;
 var flightsVisible = false;
 var globeActive = false;
 var globeScene = null;
@@ -1985,6 +2044,208 @@ var globeCamera = null;
     });
   });
 })();
+
+// ===== LANGUAGE =====
+var currentLang = localStorage.getItem('owl_travel_lang') || 'zh';
+var langData = {
+  zh: {
+    title: 'Mr. Owl\u2019s Travel Journal',
+    headerTitle: 'Travel Journal',
+    headerSub: '\u70B9\u51FB\u5730\u56FE\u4E0A\u7684\u56FD\u5BB6',
+    count0: '\u5DF2\u63A2\u7D220\u56FD',
+    countN: '\u5DF2\u63A2\u7D22{count}\u56FD',
+    globeBtn: '\u5168\u5C40',
+    focusMode: '\u805A\u7126\u6A21\u5F0F',
+    globalMode: '\u5168\u5C40\u6A21\u5F0F',
+    focusPickerTitle: '\u9009\u62E9\u56FD\u5BB6',
+    focusPickerEmpty: '\u8FD8\u6CA1\u6709\u63A2\u7D22\u8FC7\u4EFB\u4F55\u56FD\u5BB6',
+    marioTitle: '\u76EE\u7684\u5730',
+    marioSub: '\u4F60\u8FD8\u6CA1\u53BB\u8FC7\u8FD9\u91CC...\u8981\u767B\u5F55\u5417?',
+    enterBtn: '\u2708\uFE0F \u767B\u5F55\u8FD9\u7247\u571F\u5730',
+    laterBtn: '\u7A0D\u540E\u518D\u8BF4',
+    jSubNew: '\u2708\uFE0F \u521A\u521A\u62B5\u8FBE!',
+    jSubExplore: '\u5728\u4E16\u754C\u4E0A\u7559\u4E0B\u4F60\u7684\u5370\u8BB0',
+    jSelectCountry: '\u9009\u62E9\u4E00\u4E2A\u56FD\u5BB6',
+    statusTipDefault: '\u70B9\u51FB\u5730\u56FE\u4E0A\u7684\u56FD\u5BB6',
+    statusTipPrefix: '\uD83D\uDCD6 ',
+    badgeVisited: '\u2713 \u5DF2\u63A2\u7D22',
+    photoHeader: '\u7167\u7247 / \u89C6\u9891',
+    socialHeader: '\u793E\u4EA4\u5206\u4EAB',
+    socialPlaceholder1: '\u5C0F\u7EA2\u4E66\u94FE\u63A5...',
+    socialPlaceholder2: '\u5FAE\u535A / IG / \u670B\u53CB\u5708...',
+    musicHeader: '\u914D\u4E50',
+    musicPlaceholder: '\u7C98\u8D34\u6B4C\u66F2\u6216\u64AD\u653E\u5217\u8868\u94FE\u63A5',
+    noteHeader: '\u65C5\u884C\u7B14\u8BB0',
+    notePlaceholder: '\u5199\u4E0B\u4F60\u7684\u60F3\u6CD5...',
+    addPhoto: '+',
+    playBtn: '\u25B6',
+    backWorld: '\uD83C\uDF0D \u8FD4\u56DE\u4E16\u754C\u5730\u56FE',
+    focusLabel: '\u805A\u7126\u6A21\u5F0F',
+    passportTitle: '\u6570\u5B57\u62A4\u7167',
+    passportSub: 'Digital Passport',
+    passportEmpty: '\u2708\uFE0F \u8FD8\u6CA1\u6709\u63A2\u7D22\u8FC7\u4EFB\u4F55\u56FD\u5BB6<br><span style="font-size:11px;color:#c4beb0">\u70B9\u51FB\u5730\u56FE\u4E0A\u7684\u56FD\u5BB6\u5F00\u59CB\u65C5\u7A0B</span>',
+    passportDate: '\uD83D\uDCC5 \u767B\u5F55\u65E5\u671F: ',
+    passportPage: '\u7B2C {n} / {total} \u9875',
+    achTitle: '\u6210\u5C31\u52CB\u7AE0',
+    achSub: 'Achievements',
+    achUnlocked: '\u2713 \u5DF2\u89E3\u9501',
+    cardPanelTitle: '\u65C5\u884C\u8DB3\u8FF9',
+    cardPanelEmpty: '\u8FD8\u6CA1\u6709\u63A2\u7D22\u8FC7\u4EFB\u4F55\u56FD\u5BB6 \u2708\uFE0F',
+    achEmpty: '\u6682\u65E0\u6210\u5C31',
+    deleteTitle: '\u5220\u9664',
+    musicAttached: '\uD83C\uDFB5 \u6709\u914D\u4E50',
+    justArrived: '\u2708\uFE0F \u521A\u521A\u62B5\u8FBE!',
+    exploreWorld: '\u5728\u4E16\u754C\u4E0A\u7559\u4E0B\u4F60\u7684\u5370\u8BB0',
+    postcardTitle: '\u660E\u4FE1\u7247',
+    postcardSub: '\uD83D\uDC4B \u4ECE {name} \u5BC4\u6765\u7684\u95EE\u5019',
+    postcardShare: '\u5206\u4EAB',
+    passportStampPrefix: '\uD83D\uDCC6 ',
+    newJourney: '\u5728\u4E16\u754C\u4E0A\u7559\u4E0B\u4F60\u7684\u5370\u8BB0',
+    postcardNoteEmpty: '\u65C5\u884C\u7B14\u8BB0\u5C06\u51FA\u73B0\u5728\u8FD9\u91CC...',
+    postcardNoPhotos: '\u6682\u65E0\u7167\u7247',
+    shareJourney: '\u7528\u65C5\u884C\u65E5\u5FD7\u8BB0\u5F55\u6211\u7684\u8DB3\u8FF9!',
+    unknownDate: '\u672A\u77E5\u65E5\u671F',
+    cancel: '\u53D6\u6D88',
+    twitter: '\u63A8\u7279',
+    wechat: '\u5FAE\u4FE1',
+    share: '\u5206\u4EAB',
+  },
+  en: {
+    title: 'Mr. Owl\u2019s Travel Journal',
+    headerTitle: 'Travel Journal',
+    headerSub: 'Click a country on the map',
+    count0: '0 countries explored',
+    countN: '{count} countries explored',
+    globeBtn: 'Globe',
+    focusMode: 'Focus Mode',
+    globalMode: 'Global',
+    focusPickerTitle: 'Select Country',
+    focusPickerEmpty: 'No countries explored yet',
+    marioTitle: 'Destination',
+    marioSub: 'You haven\u2019t been here yet... Log it?',
+    enterBtn: '\u2708\uFE0F Log this Land',
+    laterBtn: 'Maybe Later',
+    jSubNew: '\u2708\uFE0F Just Arrived!',
+    jSubExplore: 'Leave your mark on the world',
+    jSelectCountry: 'Select a country',
+    statusTipDefault: 'Click a country on the map',
+    statusTipPrefix: '\uD83D\uDCD6 ',
+    badgeVisited: '\u2713 Explored',
+    photoHeader: 'Photos / Videos',
+    socialHeader: 'Social Links',
+    socialPlaceholder1: 'Xiaohongshu link...',
+    socialPlaceholder2: 'Weibo / IG / Moments...',
+    musicHeader: 'Music',
+    musicPlaceholder: 'Paste a song or playlist link',
+    noteHeader: 'Travel Notes',
+    notePlaceholder: 'Write your thoughts...',
+    addPhoto: '+',
+    playBtn: '\u25B6',
+    backWorld: '\uD83C\uDF0D Back to World Map',
+    focusLabel: 'Focus Mode',
+    passportTitle: 'Digital Passport',
+    passportSub: 'Digital Passport',
+    passportEmpty: '\u2708\uFE0F No countries explored yet<br><span style="font-size:11px;color:#c4beb0">Click a country on the map to start</span>',
+    passportDate: '\uD83D\uDCC5 Date: ',
+    passportPage: 'Page {n} / {total}',
+    achTitle: 'Achievements',
+    achSub: 'Achievements',
+    achUnlocked: '\u2713 Unlocked',
+    achEmpty: 'No achievements yet',
+    cardPanelTitle: 'Footprints',
+    cardPanelEmpty: '\u2708\uFE0F No countries explored yet',
+    deleteTitle: 'Delete',
+    musicAttached: '\uD83C\uDFB5 Music',
+    justArrived: '\u2708\uFE0F Just Arrived!',
+    exploreWorld: 'Leave your mark on the world',
+    postcardTitle: 'Postcard',
+    postcardSub: '\uD83D\uDC4B Greetings from {name}',
+    postcardShare: 'Share',
+    passportStampPrefix: '\uD83D\uDCC6 ',
+    newJourney: 'Leave your mark on the world',
+    postcardNoteEmpty: 'Travel notes will appear here...',
+    postcardNoPhotos: 'No photos',
+    shareJourney: 'To explore the world with Travel Journal!',
+    unknownDate: 'Unknown date',
+    cancel: 'Cancel',
+    twitter: 'Twitter',
+    wechat: 'WeChat',
+    share: 'Share',
+  }
+};
+
+function toggleLang() {
+  currentLang = currentLang === 'zh' ? 'en' : 'zh';
+  localStorage.setItem('owl_travel_lang', currentLang);
+  document.getElementById('langToggleBtn').textContent = currentLang === 'zh' ? 'EN' : '\u4E2D';
+  applyLang();
+}
+
+function applyLang() {
+  var t = langData[currentLang];
+  if (!t) return;
+  document.title = t.title;
+  // Header
+  setText('headerTitle', t.headerTitle);
+  setText('headerSub', t.headerSub);
+  setText('globeBtnText', t.globeBtn);
+  // Focus toggle button
+  document.getElementById('focusToggleBtn').innerHTML = isFocusMode ? ('\u{1F30D} ' + t.globalMode) : ('\u{1F4CD} ' + t.focusMode);
+  setText('focusPickerTitle', t.focusPickerTitle);
+  // Header title - preserve the owl
+  var h = document.getElementById('headerTitle');
+  if (h) h.innerHTML = '\u{1F989} <span>' + t.headerTitle + '</span>';
+  // Mario
+  setText('marioTitle', t.marioTitle);
+  setText('marioSub', t.marioSub);
+  setText('enterBtn', t.enterBtn);
+  setText('laterBtn', t.laterBtn);
+  // Journal
+  setText('jCountry', t.jSelectCountry);
+  setText('jSub', t.jSubExplore);
+  setText('statusTip', t.statusTipDefault);
+  setText('photoHeader', t.photoHeader);
+  setText('socialHeader', t.socialHeader);
+  setPlaceholder('linkInput1', t.socialPlaceholder1);
+  setPlaceholder('linkInput2', t.socialPlaceholder2);
+  setText('musicHeader', t.musicHeader);
+  setPlaceholder('musicInput', t.musicPlaceholder);
+  setText('noteHeader', t.noteHeader);
+  setPlaceholder('noteArea', t.notePlaceholder);
+  setText('backWorld', t.backWorld);
+  setText('focusLabel', t.focusLabel);
+  // Passport
+  setText('passportTitle', t.passportTitle);
+  setText('passportSub', t.passportSub);
+  setText('achTitle', t.achTitle);
+  setText('achSub', t.achSub);
+  setText('cardPanelTitle', t.cardPanelTitle);
+  // Count
+  updateLangCount();
+  // Passport pages if open
+  if (document.getElementById('passportOverlay') && document.getElementById('passportOverlay').classList.contains('show')) {
+    renderPassport();
+  }
+}
+
+function setText(id, val) {
+  var el = document.getElementById(id);
+  if (el) el.textContent = val;
+}
+function setPlaceholder(id, val) {
+  var el = document.getElementById(id);
+  if (el) el.placeholder = val;
+}
+
+var _origUpdateCount = updateCount;
+function updateLangCount() {
+  var t = langData[currentLang];
+  if (!t) return;
+  var count = 0;
+  for (var k in visitedData) { if (visitedData[k] && visitedData[k].visited) count++; }
+  var el = document.getElementById('countDisplay');
+  if (el) el.textContent = count === 0 ? t.count0 : t.countN.replace('{count}', count);
+}
 
 function loadAllData() {
   var raw = localStorage.getItem('owl_travel_data');
@@ -2005,8 +2266,10 @@ function loadAllData() {
   renderPassport();
   renderAchievements();
   checkAchievements();
+  applyLang();
 }
 loadAllData();
+document.getElementById('langToggleBtn').textContent = currentLang === 'zh' ? 'EN' : '\u4E2D';
 
 function saveAllData() {
   localStorage.setItem('owl_travel_data', JSON.stringify(visitedData));
@@ -2042,11 +2305,15 @@ function enterFocusMode(id) {
   var w = Math.max(bbox.width, 50);
   var h = Math.max(bbox.height, 50);
   mapSvg.setAttribute('viewBox', (cx - w/2) + ' ' + (cy - h/2) + ' ' + w + ' ' + h);
+  // Hide flights when entering focus mode
+  document.getElementById('flightSvg').style.display = 'none';
   var bar = document.getElementById('focusBar');
   var name = path.getAttribute('data-name') || id;
   document.getElementById('focusLabel').textContent = '\u{1F4CD} ' + name;
   document.getElementById('focusDot').style.background = getColor(id);
   bar.classList.add('show');
+  // Update toggle button text (emoji + label, preserve span)
+  document.getElementById('focusToggleBtn').innerHTML = '\u{1F30D} ' + langData[currentLang].globalMode;
 }
 
 function exitFocusMode() {
@@ -2054,6 +2321,14 @@ function exitFocusMode() {
   mapSvg.querySelectorAll('path.out-of-focus').forEach(function(p) { p.classList.remove('out-of-focus'); });
   mapSvg.setAttribute('viewBox', '-2 17.68 964 924.64');
   document.getElementById('focusBar').classList.remove('show');
+  // Restore flights to the correct state
+  if (flightsVisible) {
+    var fs = document.getElementById('flightSvg');
+    fs.style.display = '';
+    // Re-draw in case flights were toggled on while in focus mode
+    drawFlights();
+  }
+  document.getElementById('focusToggleBtn').textContent = '\u{1F4CD} ' + langData[currentLang].focusMode;
 }
 
 // Click country
@@ -2079,7 +2354,9 @@ function showMario(name, id) {
   document.getElementById('marioImg').style.background = 'linear-gradient(135deg,' + c + '22,' + c + '44)';
   document.getElementById('marioFlag').innerHTML = getFlagImg(id, 36);
   document.getElementById('marioTitle').textContent = name;
-  document.getElementById('marioSub').textContent = '你还没去过这里...要登录吗?';
+  document.getElementById('marioSub').textContent = langData[currentLang].marioSub;
+  document.getElementById('enterBtn').textContent = langData[currentLang].enterBtn;
+  document.getElementById('laterBtn').textContent = langData[currentLang].laterBtn;
   document.getElementById('marioOverlay').classList.add('show');
   // Generate stars
   var stars = document.getElementById('marioStars');
@@ -2150,9 +2427,9 @@ function openJournal(name, isNew) {
   var d = visitedData[name] || {};
   document.getElementById('jFlag').innerHTML = getFlagImg(d.code, 28) || '\u{1F3F4}';
   document.getElementById('jCountry').textContent = name;
-  document.getElementById('jSub').textContent = isNew ? '\u2708\uFE0F 刚刚抵达!' : '在世界上留下你的印记';
-  document.getElementById('jBadge').innerHTML = '<span class="status-badge visited">\u2713 已探索</span>';
-  document.getElementById('statusTip').textContent = '\u{1F4D6} ' + name;
+  document.getElementById('jSub').textContent = isNew ? langData[currentLang].jSubNew : langData[currentLang].jSubExplore;
+  document.getElementById('jBadge').innerHTML = '<span class="status-badge visited">' + langData[currentLang].badgeVisited + '</span>';
+  document.getElementById('statusTip').textContent = langData[currentLang].statusTipPrefix + name;
   document.getElementById('noteArea').value = d.note || '';
   document.getElementById('musicInput').value = d.music || '';
   document.getElementById('linkInput1').value = d.link1 || '';
@@ -2170,7 +2447,7 @@ function closeJournal() {
   document.getElementById('mapArea').classList.remove('side');
   mapSvg.querySelectorAll('path.active').forEach(function(p) { p.classList.remove('active'); });
   currentCountry = null;
-  document.getElementById('statusTip').textContent = '点击地图上的国家';
+  document.getElementById('statusTip').textContent = langData[currentLang].statusTipDefault;
   exitFocusMode();
 }
 
@@ -2199,29 +2476,66 @@ function updateMusicLink() {
 }
 function playMusic() { var val = document.getElementById('musicInput').value; if (val) window.open(val, '_blank'); }
 
-function toggleGlobal() {
-  isGlobalMode = !isGlobalMode;
-  var btn = document.getElementById('globalBtn');
-  if (isGlobalMode) {
-    btn.textContent = '\u{1F5FA}\uFE0F 关闭全局';
+// Focus picker — pick a visited country to enter focus mode
+function toggleFocusPicker() {
+  if (isFocusMode) {
     exitFocusMode();
-    mapSvg.querySelectorAll('path.visited').forEach(function(p) {
-      var c = getColor(p.id); p.style.fill = c + '66'; p.style.stroke = c;
-    });
-    mapSvg.querySelectorAll('path.locked').forEach(function(p) { p.style.fill = '#f0ece6'; p.style.stroke = '#d4cec4'; });
-  } else {
-    btn.textContent = '\u{1F30D} 全局';
-    mapSvg.querySelectorAll('path').forEach(function(p) { p.style.fill = ''; p.style.stroke = ''; });
-    mapSvg.querySelectorAll('path.visited').forEach(function(p) {
-      var c = getColor(p.id); p.style.fill = c + '55'; p.style.stroke = c;
-    });
+    return;
   }
+  var overlay = document.getElementById('focusPickerOverlay');
+  if (overlay.classList.contains('show')) {
+    overlay.classList.remove('show');
+    return;
+  }
+  // Build list of visited countries
+  var list = document.getElementById('focusPickerList');
+  list.innerHTML = '';
+  var visited = [];
+  for (var k in visitedData) {
+    if (visitedData[k] && visitedData[k].visited) {
+      visited.push({ name: k, code: visitedData[k].code || k });
+    }
+  }
+  if (visited.length === 0) {
+    // Show empty state
+    list.innerHTML = '<div style="padding:20px;text-align:center;color:#9a9080;font-size:13px">' + langData[currentLang].focusPickerEmpty + '</div>';
+  } else {
+    visited.sort(function(a,b) { return a.name.localeCompare(b.name); });
+    for (var i = 0; i < visited.length; i++) {
+      var item = visited[i];
+      var div = document.createElement('div');
+      div.className = 'focus-picker-item';
+      var color = getColor(item.code);
+      div.innerHTML = '<img class="fp-flag" src="https://flagcdn.com/48x36/' + item.code.toLowerCase() + '.png" alt="" loading="lazy">' +
+        '<span class="fp-name">' + item.name + '</span>' +
+        '<span class="fp-dot" style="background:' + color + '"></span>';
+      div.onclick = (function(code, name) {
+        return function(e) {
+          e.stopPropagation();
+          onClickCountry(code, name);
+          document.getElementById('focusPickerOverlay').classList.remove('show');
+        };
+      })(item.code, item.name);
+      list.appendChild(div);
+    }
+  }
+  overlay.classList.add('show');
 }
+
+// Click outside to close
+document.addEventListener('click', function(e) {
+  var overlay = document.getElementById('focusPickerOverlay');
+  if (overlay && overlay.classList.contains('show') && !e.target.closest('.focus-picker-box') && !e.target.closest('#focusToggleBtn')) {
+    overlay.classList.remove('show');
+  }
+});
 
 function updateCount() {
   var count = 0;
   for (var k in visitedData) { if (visitedData[k] && visitedData[k].visited) count++; }
-  document.getElementById('countDisplay').textContent = '已探索 ' + count + ' 国';
+  var el = document.getElementById('countDisplay');
+  var t = langData[currentLang];
+  if (t) el.textContent = count === 0 ? t.count0 : t.countN.replace('{count}', count);
 }
 
 function toggleCardPanel() {
@@ -2239,12 +2553,12 @@ function buildCards() {
     var d = item.data;
     var flagEmoji = getFlagImg(d.code, 28);
     html += '<div class="card-item" onclick="jumpToCountry(\'' + item.name.replace(/'/g,"\\'") + '\')">' +
-      '<button class="card-item-del" onclick="event.stopPropagation();deleteCountry(\'' + item.name.replace(/'/g,"\\'") + '\')" title="删除">&#x2715;</button>' +
+      '<button class="card-item-del" onclick="event.stopPropagation();deleteCountry(\'' + item.name.replace(/'/g,"\\'") + '\')" title="' + langData[currentLang].deleteTitle + '">&#x2715;</button>' +
       '<div class="flag">' + flagEmoji + '</div>' +
       '<div class="name">' + item.name + '</div>' +
-      '<div class="date">' + (d.music ? '\u{1F3B5} 有配乐' : '') + '</div></div>';
+      '<div class="date">' + (d.music ? '\u{1F3B5} ' + langData[currentLang].musicAttached : '') + '</div></div>';
   });
-  if (!html) html = '<div style="text-align:center;padding:20px;color:#9a9080;font-size:13px">还没有探索过任何国家 \u2708\uFE0F</div>';
+  if (!html) html = '<div style="text-align:center;padding:20px;color:#9a9080;font-size:13px">' + langData[currentLang].cardPanelEmpty + '</div>';
   grid.innerHTML = html;
 }
 
@@ -2293,7 +2607,8 @@ document.addEventListener('click', function(e) {
       !e.target.closest('.mario-overlay') && !e.target.closest('.card-panel') &&
       !e.target.closest('.card-manager') && !e.target.closest('.focus-bar') &&
       !e.target.closest('.passport-overlay') && !e.target.closest('.ach-overlay') &&
-      !e.target.closest('.postcard-overlay') && !e.target.closest('.toolbar')) { closeJournal(); }
+      !e.target.closest('.postcard-overlay') && !e.target.closest('.toolbar') &&
+      !e.target.closest('.focus-picker-overlay')) { closeJournal(); }
 });
 
 // ===== 1. DIGITAL PASSPORT =====
@@ -2312,7 +2627,7 @@ function renderPassport() {
   }
   items.sort(function(a,b) { return a.name.localeCompare(b.name); });
   if (!items.length) {
-    container.innerHTML = '<div class="passport-empty">\u2708\uFE0F 还没有探索过任何国家<br><span style="font-size:11px;color:#c4beb0">点击地图上的国家开始旅程</span></div>';
+    container.innerHTML = '<div class="passport-empty">' + langData[currentLang].passportEmpty + '</div>';
     return;
   }
   var stampIcons = ['\u{1F30D}','\u{1F30E}','\u{1F30F}','\u{1F5FA}','\u{1F3D4}','\u{1F3DD}','\u{1F3DE}','\u{1F3DF}','\u{1F3F0}','\u{1F54A}','\u{1F3EF}','\u{1F3F0}','\u{1F5FC}','\u{1F5FD}','\u{1F3D8}','\u{1F3D9}','\u{1F3DA}','\u{1F3DB}','\u{1F3DC}','\u{1F3DD}'];
@@ -2321,7 +2636,7 @@ function renderPassport() {
     var d = item.data;
     var code = d.code || '??';
     var c = getColor(code);
-    var date = d.date || '未知日期';
+    var date = d.date || langData[currentLang].unknownDate;
     var flagEmoji = getFlagImg(code, 48);
     var active = idx === 0 ? ' active' : '';
     html += '<div class="passport-leaf' + active + '" data-leaf="' + idx + '">' +
@@ -2335,7 +2650,7 @@ function renderPassport() {
         flagEmoji +
       '</div>' +
       '<div class="passport-leaf-date">' +
-        '\u{1F4C5} 登录日期: <input type="date" value="' + date + '" onchange="updatePassportDate(\'' + item.name.replace(/'/g,"\\'") + '\',this.value)">' +
+        langData[currentLang].passportDate + '<input type="date" value="' + date + '" onchange="updatePassportDate(\'' + item.name.replace(/'/g,"\\'") + '\',this.value)">' +
       '</div>' +
       '<div style="text-align:center;margin-top:6px;font-size:10px;color:#c4beb0">\u{1F6C2} Digital Passport</div>' +
     '</div>';
@@ -2343,7 +2658,7 @@ function renderPassport() {
   html += '</div>';
   html += '<div class="passport-nav">' +
     '<button class="passport-nav-btn" id="passportPrev" onclick="passportPage(-1)">\u25C0</button>' +
-    '<span class="passport-nav-text" id="passportPageNum">第 1 / ' + items.length + ' 页</span>' +
+    '<span class="passport-nav-text" id="passportPageNum">' + langData[currentLang].passportPage.replace('{n}', 1).replace('{total}', items.length) + '</span>' +
     '<button class="passport-nav-btn" id="passportNext" onclick="passportPage(1)">\u25B6</button>' +
   '</div>';
   container.innerHTML = html;
@@ -2357,7 +2672,7 @@ function passportPage(dir) {
   leaves[passportCurrent].classList.remove('active');
   passportCurrent = Math.max(0, Math.min(passportCurrent + dir, leaves.length - 1));
   leaves[passportCurrent].classList.add('active');
-  document.getElementById('passportPageNum').textContent = '第 ' + (passportCurrent + 1) + ' / ' + leaves.length + ' 页';
+  document.getElementById('passportPageNum').textContent = langData[currentLang].passportPage.replace('{n}', passportCurrent + 1).replace('{total}', leaves.length);
 }
 
 function updatePassportDate(name, value) {
@@ -2372,7 +2687,10 @@ function toggleFlights() {
   flightsVisible = !flightsVisible;
   document.getElementById('flightBtn').classList.toggle('active', flightsVisible);
   if (flightsVisible) {
-    drawFlights();
+    // Clear any display:none left by focus mode
+    document.getElementById('flightSvg').style.display = '';
+    // Don't draw if currently in focus mode — flights and focus don't mix
+    if (!isFocusMode) drawFlights();
   } else {
     document.getElementById('flightSvg').innerHTML = '';
   }
@@ -2493,10 +2811,10 @@ function renderAchievements() {
       '<div class="ach-badge-info">' +
         '<div class="ach-badge-name">' + a.name + '</div>' +
         '<div class="ach-badge-desc">' + a.desc + '</div>' +
-        '<div class="ach-badge-status">\u2713 已解锁</div>' +
+        '<div class="ach-badge-status">' + langData[currentLang].achUnlocked + '</div>' +
       '</div></div>';
   });
-  if (!html) html = '<div style="text-align:center;padding:20px;color:#9a9080;font-size:13px;grid-column:1/-1">暂无成就</div>';
+  if (!html) html = '<div style="text-align:center;padding:20px;color:#9a9080;font-size:13px;grid-column:1/-1">' + langData[currentLang].achEmpty + '</div>';
   grid.innerHTML = html;
 }
 
@@ -2527,7 +2845,7 @@ function celebrateAchievement(a) {
 // ===== 4. POSTCARD =====
 function sharePostcard() {
   if (!currentCountry || !visitedData[currentCountry]) {
-    alert('请先选择一个已探索的国家');
+    alert(langData[currentLang].cardPanelEmpty);
     return;
   }
   var d = visitedData[currentCountry];
@@ -2536,7 +2854,7 @@ function sharePostcard() {
   var front = document.getElementById('postcardFront');
   front.style.background = 'linear-gradient(135deg,' + c + '88,' + c + ')';
   document.getElementById('postcardCountry').textContent = currentCountry;
-  document.getElementById('postcardNote').textContent = d.note || '旅行笔记将出现在这里...';
+  document.getElementById('postcardNote').textContent = d.note || langData[currentLang].postcardNoteEmpty;
   document.getElementById('postcardDate').textContent = d.date || new Date().toISOString().split('T')[0];
   var photosHtml = '';
   if (d.photos) {
