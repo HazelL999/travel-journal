@@ -43,14 +43,29 @@ body{min-height:100vh;background:#faf8f5;color:#2c2418;font-family:'Inter',sans-
 .mario-card-body{padding:20px 24px 24px}
 .mario-card-body h2{font-family:'Playfair Display',serif;font-size:24px;color:#1a1a1a;margin-bottom:2px}
 .mario-card-body .sub{font-size:13px;color:#9a9080;margin-bottom:14px}
-.mario-card-body .flag{font-size:36px;margin-bottom:6px}
+.mario-card-body .flag{text-align:center;margin-bottom:8px;min-height:30px}
 .mario-card-close{position:absolute;top:14px;right:14px;width:28px;height:28px;border-radius:50%;background:rgba(255,255,255,.5);color:#333;border:none;font-size:14px;cursor:pointer;transition:all .2s;display:flex;align-items:center;justify-content:center}
 .mario-card-close:hover{background:rgba(255,255,255,.8)}
+.mario-runner{position:absolute;bottom:8px;font-size:48px;z-index:3;animation:marioRun 2.5s ease-in-out infinite}
+@keyframes marioRun{0%{left:-60px;transform:scaleX(1)}42%{left:38%;transform:scaleX(1)}47%{left:42%;transform:scaleX(-1)}92%{left:calc(100% + 20px);transform:scaleX(-1)}100%{left:calc(100% + 20px);transform:scaleX(1)}}
+.mario-coin{position:absolute;font-size:24px;opacity:0;z-index:2;animation:coinPop 2.2s ease-out infinite}
+.mario-coin.c1{left:38%;top:22%;animation-delay:.3s}
+.mario-coin.c2{left:50%;top:18%;animation-delay:.4s}
+.mario-coin.c3{left:44%;top:14%;animation-delay:.5s}
+@keyframes coinPop{0%,20%{opacity:0;transform:translateY(0) scale(0) rotate(0)}26%{opacity:1;transform:translateY(-8px) scale(1.2) rotate(180deg)}36%{opacity:1;transform:translateY(-40px) scale(1) rotate(360deg)}50%,100%{opacity:0;transform:translateY(-60px) scale(.6) rotate(540deg)}}
+.mario-block{position:absolute;top:32%;left:50%;margin-left:-18px;width:36px;height:36px;background:linear-gradient(135deg,#f0c040,#d4a020);border:3px solid #b8860b;border-radius:5px;display:flex;align-items:center;justify-content:center;font-size:20px;color:#fff;font-weight:bold;animation:blockHit 2.5s ease-in-out infinite;z-index:2;box-shadow:0 0 15px rgba(240,192,64,.3)}
+@keyframes blockHit{0%,42%{transform:translateY(0) scale(1)}47%{transform:translateY(8px) scale(.86)}52%{transform:translateY(0) scale(1)}100%{transform:translateY(0) scale(1)}}
+.mario-stars{position:absolute;inset:0;pointer-events:none;overflow:hidden;z-index:0}
+.mario-star{position:absolute;font-size:14px;animation:starFloat 2s ease-out forwards}
+@keyframes starFloat{0%{transform:translateY(0) rotate(0) scale(0);opacity:1}100%{transform:translateY(-250px) rotate(720deg) scale(1.5);opacity:0}}
+.mario-bg{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:72px;opacity:.15;z-index:0}
+.mario-card-img{position:relative;overflow:hidden}
+.mario-card-img .mario-bg{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:72px;opacity:.3;z-index:0}
 .journal{position:fixed;top:52px;right:-380px;width:380px;bottom:0;z-index:50;background:#fff;border-left:1px solid #e8e3dc;padding:20px 20px 16px;transition:right .4s cubic-bezier(.25,.46,.45,.94);overflow-y:auto;display:flex;flex-direction:column}
 .journal.open{right:0}
 .journal-header{border-bottom:1px solid #f0ece6;padding-bottom:12px;margin-bottom:12px;display:flex;align-items:flex-start;justify-content:space-between}
 .journal-left{flex:1}
-.journal-flag{font-size:28px;margin-bottom:1px;line-height:1}
+.journal-flag{text-align:center;margin-bottom:2px;min-height:22px}
 .journal-country{font-family:'Playfair Display',serif;font-size:20px;color:#1a1a1a}
 .journal-sub{font-size:11px;color:#9a9080;margin-top:1px}
 .journal-scroll{flex:1;overflow-y:auto;padding-right:4px}
@@ -86,12 +101,20 @@ body{min-height:100vh;background:#faf8f5;color:#2c2418;font-family:'Inter',sans-
 .card-panel-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
 .card-panel-title{font-family:'Playfair Display',serif;font-size:17px;color:#1a1a1a}
 .card-panel-close{width:26px;height:26px;border-radius:50%;background:#f5f3f0;border:none;cursor:pointer;font-size:13px;display:flex;align-items:center;justify-content:center;color:#4a4035}
-.card-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:6px}
-.card-item{background:#faf8f5;border:1px solid #e8e3dc;border-radius:8px;padding:8px 10px;cursor:pointer;transition:all .2s}
-.card-item:hover{border-color:#999;background:#f5f0e8}
-.card-item .flag{font-size:18px;margin-bottom:1px}
-.card-item .name{font-size:12px;color:#2c2418;font-weight:500}
-.card-item .date{font-size:10px;color:#9a9080;margin-top:1px}
+.card-grid{display:flex;flex-wrap:wrap;gap:8px;padding:2px}
+.card-item{background:#faf8f5;border:1px solid #e8e3dc;padding:10px 12px 8px;cursor:pointer;transition:all .25s;position:relative;width:calc(50% - 4px);text-align:center}
+.card-item:hover{border-color:#999;background:#f5f0e8;transform:translateY(-2px)}
+.card-item:nth-child(3n){border-radius:14px 8px 14px 8px}
+.card-item:nth-child(3n+1){border-radius:8px 14px 8px 14px}
+.card-item:nth-child(3n+2){border-radius:14px 14px 8px 8px}
+.card-item:nth-child(5n){border-radius:8px 8px 14px 14px}
+.card-item:nth-child(7n){border-radius:12px 6px 12px 6px}
+.card-item .flag{text-align:center;margin-bottom:4px;min-height:22px}
+.card-item .name{font-size:11px;color:#2c2418;font-weight:500}
+.card-item .date{font-size:9px;color:#9a9080;margin-top:1px}
+.card-item-del{position:absolute;top:-4px;right:-4px;width:18px;height:18px;border-radius:50%;background:#fff;border:1px solid #e8e3dc;color:#9a9080;font-size:10px;cursor:pointer;display:flex;align-items:center;justify-content:center;opacity:0;transition:all .2s;z-index:2}
+.card-item:hover .card-item-del{opacity:1}
+.card-item-del:hover{background:#ff6b6b;color:#fff;border-color:#ff6b6b}
 
 /* BOTTOM TOOLBAR */
 .toolbar{position:fixed;bottom:16px;left:50%;transform:translateX(-50%);z-index:65;display:flex;gap:6px;background:#fff;padding:6px 10px;border-radius:14px;border:1px solid #e8e3dc;box-shadow:0 2px 16px rgba(0,0,0,.06)}
@@ -109,15 +132,25 @@ body{min-height:100vh;background:#faf8f5;color:#2c2418;font-family:'Inter',sans-
 .passport-cover-title{font-family:'Playfair Display',serif;font-size:20px;letter-spacing:1px}
 .passport-cover-sub{font-size:10px;opacity:.6;margin-top:2px}
 .passport-close{width:28px;height:28px;border-radius:50%;background:rgba(255,255,255,.15);border:none;color:#fff;font-size:13px;cursor:pointer;display:flex;align-items:center;justify-content:center}
-.passport-pages{flex:1;overflow-y:auto;padding:12px 16px}
-.passport-page{display:flex;align-items:center;gap:12px;padding:10px 12px;border-bottom:1px solid #f0ece6;transition:all .2s}
-.passport-page:last-child{border-bottom:none}
-.passport-stamp{width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;border:2px solid;position:relative}
-.passport-stamp-inner{position:absolute;width:100%;height:100%;border-radius:50%;opacity:.15}
-.passport-page-info{flex:1}
-.passport-page-name{font-size:14px;font-weight:500;color:#2c2418}
-.passport-page-date{font-size:11px;color:#9a9080;margin-top:1px}
-.passport-empty{padding:40px 20px;text-align:center;color:#9a9080;font-size:13px}
+.passport-pages{flex:1;overflow-y:auto;padding:16px;position:relative;min-height:200px}
+.passport-leaf{display:none;padding:20px;border-radius:12px;background:#faf8f5;border:1px solid #e8e3dc;position:relative;min-height:160px}
+.passport-leaf.active{display:block;animation:leafIn .3s ease}
+@keyframes leafIn{0%{opacity:0;transform:translateX(20px)}100%{opacity:1;transform:translateX(0)}}
+.passport-leaf-top{display:flex;align-items:center;gap:14px;margin-bottom:12px}
+.passport-leaf-flag{text-align:center;min-height:40px}
+.passport-leaf-name{font-family:'Playfair Display',serif;font-size:22px;color:#1a1a1a}
+.passport-leaf-stamp{width:72px;height:72px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:28px;border:3px solid;position:relative;margin:10px auto;transform:rotate(-3deg)}
+.passport-leaf-stamp-inner{position:absolute;width:100%;height:100%;border-radius:50%;opacity:.12}
+.passport-leaf-date{text-align:center;margin-top:8px;font-size:12px;color:#9a9080}
+.passport-leaf-date input{font-family:'Inter',sans-serif;font-size:13px;color:#2c2418;border:1px solid #e8e3dc;border-radius:6px;padding:4px 8px;width:140px;text-align:center;background:#fff;transition:all .2s}
+.passport-leaf-date input:focus{border-color:#b8965a;outline:none;box-shadow:0 0 0 3px rgba(184,150,90,.1)}
+.passport-leaf-stamp-mark{position:absolute;top:8px;right:10px;font-size:18px;opacity:.3;transform:rotate(15deg)}
+.passport-nav{display:flex;align-items:center;justify-content:center;gap:14px;padding:10px 0 4px;border-top:1px solid #f0ece6;margin-top:10px}
+.passport-nav-btn{width:32px;height:32px;border-radius:50%;background:#faf8f5;border:1px solid #e8e3dc;cursor:pointer;font-size:14px;display:flex;align-items:center;justify-content:center;transition:all .2s;color:#4a4035}
+.passport-nav-btn:hover{background:#f0ece6;border-color:#999}
+.passport-nav-btn:disabled{opacity:.3;cursor:default}
+.passport-nav-text{font-size:11px;color:#9a9080}
+.passport-empty{padding:40px 20px;text-align:center;color:#9a9080;font-size:13px;width:100%}
 
 /* FLIGHT ROUTES */
 #flightSvg{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:2}
@@ -136,7 +169,7 @@ body{min-height:100vh;background:#faf8f5;color:#2c2418;font-family:'Inter',sans-
 .ach-header-title{font-family:'Playfair Display',serif;font-size:18px}
 .ach-header-sub{font-size:10px;opacity:.8;margin-top:2px}
 .ach-close{width:28px;height:28px;border-radius:50%;background:rgba(255,255,255,.2);border:none;color:#fff;font-size:13px;cursor:pointer;display:flex;align-items:center;justify-content:center}
-.ach-grid{flex:1;overflow-y:auto;padding:14px 16px;display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.ach-grid{flex:1;overflow-y:auto;padding:14px 16px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px}
 .ach-badge{display:flex;align-items:center;gap:10px;padding:10px 12px;background:#faf8f5;border:1px solid #e8e3dc;border-radius:10px;transition:all .2s}
 .ach-badge.unlocked{background:#f5f8f0;border-color:#c4d4a4}
 .ach-badge.locked{opacity:.5;filter:grayscale(.6)}
@@ -465,7 +498,15 @@ body{min-height:100vh;background:#faf8f5;color:#2c2418;font-family:'Inter',sans-
 
 <div class="mario-overlay" id="marioOverlay">
   <div class="mario-card">
-    <div class="mario-card-img" id="marioImg" style="background:#e8e3dc"><span>&#x1F30D;</span></div>
+    <div class="mario-card-img" id="marioImg" style="background:#e8e3dc">
+      <div class="mario-bg"><span>&#x1F30D;</span></div>
+      <div class="mario-stars" id="marioStars"></div>
+      <div class="mario-block">?</div>
+      <div class="mario-runner" id="marioRunner">&#x1F3C3;</div>
+      <div class="mario-coin c1">&#x1FA99;</div>
+      <div class="mario-coin c2">&#x1FA99;</div>
+      <div class="mario-coin c3">&#x1FA99;</div>
+    </div>
     <button class="mario-card-close" onclick="closeMario()">&#x2715;</button>
     <div class="mario-card-body">
       <div class="flag" id="marioFlag">&#x1F3F4;</div>
@@ -1901,10 +1942,26 @@ var ACHIEVEMENTS = [
   {key:'note_taker',icon:'✍️',name:'记录者',desc:'在某国写了笔记',count:1,extra:'note'},
   {key:'social_butterfly',icon:'🦋',name:'社交达人',desc:'在某国填写了分享链接',count:1,extra:'social'},
   {key:'full_house',icon:'💎',name:'完美旅人',desc:'在某国填满了所有内容',count:1,extra:'full'},
+  {key:'island_hop',icon:'🏝️',name:'岛国漫游者',desc:'探索2个岛国',count:2,codes:["JP", "ID", "PH", "SG", "MY", "FJ", "SB", "VU", "WS", "TO", "FM", "MH", "PW", "KI", "TV", "NR", "MV", "SC", "MU", "KM", "CV", "ST", "TT", "BS", "BB", "BZ", "MT", "CY", "IS", "LK", "BN", "TL", "PG", "GD", "LC", "VC", "DM", "AG", "KN", "SC", "MU", "KM", "CV", "ST", "MT", "CY", "IS", "BS", "BB", "TT", "GD", "AG", "DM", "LC", "VC", "KN", "BN", "TL", "FJ", "SB", "VU", "WS", "TO", "FM", "MH", "PW", "KI", "TV", "NR", "SG", "MY", "ID", "PH", "JP", "MV", "LK", "SC", "MU", "KM", "CV", "ST", "MT", "CY", "IS"]},
+  {key:'landlocked',icon:'🏔️',name:'内陆探险家',desc:'探索2个内陆国',count:2,codes:["CH", "AT", "CZ", "HU", "SK", "RS", "BY", "KZ", "KG", "TJ", "UZ", "TM", "MN", "NP", "LA", "BO", "PY", "ZW", "ZM", "MW", "UG", "RW", "BI", "CF", "TD", "NE", "ML", "BF", "SS", "ET", "LU", "LI", "AD", "SM", "VA", "MK", "ME", "BA", "MD", "AM", "AZ", "GE", "KH", "MN", "KG", "TJ", "UZ", "TM", "KZ", "BT", "LA", "NP", "BO", "PY", "ZW", "ZM", "MW", "UG", "RW", "BI", "CF", "TD", "NE", "ML", "BF", "SS", "ET", "LU", "LI", "AD", "SM", "VA", "MK", "ME", "BA", "MD", "AM", "AZ", "GE", "KH"]},
+  {key:'ancient_wonders',icon:'🏛️',name:'文明古迹',desc:'探索2个文明古国',count:2,codes:["CN", "IN", "EG", "GR", "IT", "IR", "IQ", "TR", "JP", "MX", "PE", "GT", "KH", "LK", "ET", "YE", "OM", "PK", "BD", "MM", "LA", "ID", "PT", "ES", "GB", "FR", "DE", "NL", "BE", "AT", "HU", "PL", "CZ", "HR", "RS", "BG", "RO", "UA", "RU", "GE", "AM", "AZ", "SY", "JO", "LB", "IL", "PS", "SA", "AE", "QA", "BH", "KW", "MY", "SG", "VN", "TH", "KR", "MN", "KZ", "UZ", "TM", "KG", "TJ", "NP", "BT", "LA", "KH", "MM", "BD", "LK", "MV", "SC", "MU", "KM", "CV", "ST", "MT", "CY", "IS", "BS", "BB", "TT", "GD", "AG", "DM", "LC", "VC", "KN", "BN", "TL", "FJ", "SB", "VU", "WS", "TO", "FM", "MH", "PW", "KI", "TV", "NR", "SG", "MY", "ID", "PH", "JP", "MV", "LK", "SC", "MU", "KM", "CV", "ST", "MT", "CY", "IS", "BS", "BB", "TT", "GD", "AG", "DM", "LC", "VC", "KN", "BN", "TL", "FJ", "SB", "VU", "WS", "TO", "FM", "MH", "PW", "KI", "TV", "NR", "SG", "MY", "ID", "PH", "JP", "MV", "LK", "SC", "MU", "KM", "CV", "ST", "MT", "CY", "IS"]},
+  {key:'nordic',icon:'🌌',name:'极光追寻者',desc:'探索1个北欧国家',count:1,codes:["SE", "NO", "FI", "DK", "IS"]},
+  {key:'mediterranean',icon:'☀️',name:'地中海微风',desc:'探索1个地中海国家',count:1,codes:["ES", "FR", "IT", "GR", "HR", "TR", "IL", "EG", "MA", "TN", "DZ", "LY", "MT", "CY", "LB", "SY", "AL", "ME", "BA", "SI", "MC", "VA", "PT", "LY", "TN", "DZ", "MA", "EG", "IL", "LB", "SY", "TR", "GR", "AL", "ME", "HR", "SI", "IT", "FR", "ES", "MT", "CY", "MC", "VA"]},
+  {key:'silk_road',icon:'🐪',name:'丝绸之路',desc:'探索1个中亚国家',count:1,codes:["KZ", "KG", "TJ", "UZ", "TM", "MN"]},
+  {key:'orient',icon:'🏮',name:'东方旅人',desc:'探索2个东亚国家',count:2,codes:["CN", "JP", "KR", "MN", "TW"]},
+  {key:'latin_beat',icon:'💃',name:'拉丁节拍',desc:'探索2个拉丁美洲国家',count:2,codes:["MX", "BR", "AR", "CL", "CO", "PE", "VE", "EC", "UY", "PY", "BO", "SR", "GY", "GT", "CU", "DO", "HN", "SV", "NI", "CR", "PA", "JM", "TT", "BS", "BB", "BZ", "GD", "AG", "DM", "LC", "VC", "KN"]},
+  {key:'crossroads',icon:'🕌',name:'十字路口',desc:'探索1个中东国家',count:1,codes:["SA", "AE", "QA", "BH", "KW", "OM", "YE", "IQ", "IR", "SY", "JO", "LB", "IL", "PS", "TR"]},
+  {key:'east_europe',icon:'🏰',name:'东欧风情',desc:'探索2个东欧国家',count:2,codes:["PL", "CZ", "HU", "RO", "BG", "RS", "HR", "SI", "SK", "UA", "BY", "MD", "LT", "LV", "EE", "AL", "MK", "ME", "BA", "GR", "TR", "RU"]},
 ];
 
 function getColor(code) { return dopamineColors[code] || '#c4a86a'; }
 function getCentroid(code) { return countryCentroids[code] || [0,0]; }
+function getFlagImg(code, size) {
+  if (!code || code.length !== 2) return '<span style="font-size:' + (size||24) + 'px">\u{1F3F4}</span>';
+  var w = size || 24;
+  var h = Math.round(w * 0.75);
+  return '<img src="https://flagcdn.com/' + w + 'x' + h + '/' + code.toLowerCase() + '.png" alt="' + code + '" style="width:' + w + 'px;height:' + h + 'px;vertical-align:middle;border-radius:2px;box-shadow:0 1px 3px rgba(0,0,0,.1)">';
+}
 
 var mapSvg = document.getElementById('mapSvg');
 var visitedData = {};
@@ -2020,10 +2077,27 @@ function showMario(name, id) {
   marioTarget = name; marioTargetId = id;
   var c = getColor(id);
   document.getElementById('marioImg').style.background = 'linear-gradient(135deg,' + c + '22,' + c + '44)';
-  document.getElementById('marioFlag').textContent = '\u{1F3F4}';
+  document.getElementById('marioFlag').innerHTML = getFlagImg(id, 36);
   document.getElementById('marioTitle').textContent = name;
   document.getElementById('marioSub').textContent = '你还没去过这里...要登录吗?';
   document.getElementById('marioOverlay').classList.add('show');
+  // Generate stars
+  var stars = document.getElementById('marioStars');
+  stars.innerHTML = '';
+  for (var i = 0; i < 12; i++) {
+    var s = document.createElement('div');
+    s.className = 'mario-star';
+    s.textContent = ['\u2B50','\u2728','\uD83D\uDCAF','\uD83C\uDF1F'][i%4];
+    s.style.left = (10 + Math.random() * 80) + '%';
+    s.style.top = (10 + Math.random() * 60) + '%';
+    s.style.animationDelay = (Math.random() * 1.5) + 's';
+    stars.appendChild(s);
+  }
+  // Reset runner
+  var runner = document.getElementById('marioRunner');
+  runner.style.animation = 'none';
+  void runner.offsetWidth;
+  runner.style.animation = '';
 }
 
 function closeMario() {
@@ -2037,7 +2111,7 @@ function enterCountry() {
   var name = marioTarget, id = marioTargetId;
   if (!visitedData[name]) visitedData[name] = {};
   visitedData[name].visited = true;
-  visitedData[name].flag = '\u{1F3F4}';
+  visitedData[name].flag = getFlagImg(id, 24);
   visitedData[name].code = id;
   visitedData[name].date = new Date().toISOString().split('T')[0];
   visitedData[name].photos = visitedData[name].photos || [];
@@ -2074,7 +2148,7 @@ function openJournal(name, isNew) {
   document.getElementById('mapArea').classList.add('side');
   document.getElementById('journal').classList.add('open');
   var d = visitedData[name] || {};
-  document.getElementById('jFlag').textContent = d.flag || '\u{1F3F4}';
+  document.getElementById('jFlag').innerHTML = getFlagImg(d.code, 28) || '\u{1F3F4}';
   document.getElementById('jCountry').textContent = name;
   document.getElementById('jSub').textContent = isNew ? '\u2708\uFE0F 刚刚抵达!' : '在世界上留下你的印记';
   document.getElementById('jBadge').innerHTML = '<span class="status-badge visited">\u2713 已探索</span>';
@@ -2161,15 +2235,38 @@ function buildCards() {
   var items = [];
   for (var k in visitedData) { if (visitedData[k] && visitedData[k].visited) items.push({name:k, data:visitedData[k]}); }
   items.sort(function(a,b) { return a.name.localeCompare(b.name); });
-  items.forEach(function(item) {
+  items.forEach(function(item, idx) {
     var d = item.data;
+    var flagEmoji = getFlagImg(d.code, 28);
     html += '<div class="card-item" onclick="jumpToCountry(\'' + item.name.replace(/'/g,"\\'") + '\')">' +
-      '<div class="flag">' + (d.flag||'\u{1F3F4}') + '</div>' +
+      '<button class="card-item-del" onclick="event.stopPropagation();deleteCountry(\'' + item.name.replace(/'/g,"\\'") + '\')" title="删除">&#x2715;</button>' +
+      '<div class="flag">' + flagEmoji + '</div>' +
       '<div class="name">' + item.name + '</div>' +
       '<div class="date">' + (d.music ? '\u{1F3B5} 有配乐' : '') + '</div></div>';
   });
   if (!html) html = '<div style="text-align:center;padding:20px;color:#9a9080;font-size:13px">还没有探索过任何国家 \u2708\uFE0F</div>';
   grid.innerHTML = html;
+}
+
+function deleteCountry(name) {
+  if (!visitedData[name]) return;
+  var code = visitedData[name].code;
+  // Reset map path
+  var path = mapSvg.querySelector('path[id="' + code + '"]');
+  if (path) {
+    path.classList.remove('visited');
+    path.classList.add('locked');
+    path.style.fill = '#e8e3dc';
+    path.style.stroke = '#d4cec4';
+    path.style.animation = '';
+  }
+  // Close journal if this country is currently open
+  if (currentCountry === name) closeJournal();
+  // Remove from data
+  delete visitedData[name];
+  saveAllData();
+  updateCount();
+  buildCards();
 }
 
 function jumpToCountry(name) {
@@ -2218,24 +2315,56 @@ function renderPassport() {
     container.innerHTML = '<div class="passport-empty">\u2708\uFE0F 还没有探索过任何国家<br><span style="font-size:11px;color:#c4beb0">点击地图上的国家开始旅程</span></div>';
     return;
   }
-  var html = '';
-  items.forEach(function(item) {
+  var stampIcons = ['\u{1F30D}','\u{1F30E}','\u{1F30F}','\u{1F5FA}','\u{1F3D4}','\u{1F3DD}','\u{1F3DE}','\u{1F3DF}','\u{1F3F0}','\u{1F54A}','\u{1F3EF}','\u{1F3F0}','\u{1F5FC}','\u{1F5FD}','\u{1F3D8}','\u{1F3D9}','\u{1F3DA}','\u{1F3DB}','\u{1F3DC}','\u{1F3DD}'];
+  var html = '<div class="passport-leaves" id="passportLeaves">';
+  items.forEach(function(item, idx) {
     var d = item.data;
     var code = d.code || '??';
     var c = getColor(code);
     var date = d.date || '未知日期';
-    html += '<div class="passport-page">' +
-      '<div class="passport-stamp" style="border-color:' + c + ';color:' + c + '">' +
-        '<div class="passport-stamp-inner" style="background:' + c + '"></div>' +
-        (d.flag || '\u{1F3F4}') +
+    var flagEmoji = getFlagImg(code, 48);
+    var active = idx === 0 ? ' active' : '';
+    html += '<div class="passport-leaf' + active + '" data-leaf="' + idx + '">' +
+      '<div class="passport-leaf-stamp-mark">' + stampIcons[idx % stampIcons.length] + '</div>' +
+      '<div class="passport-leaf-top">' +
+        '<div class="passport-leaf-flag">' + flagEmoji + '</div>' +
+        '<div class="passport-leaf-name">' + item.name + '</div>' +
       '</div>' +
-      '<div class="passport-page-info">' +
-        '<div class="passport-page-name">' + item.name + '</div>' +
-        '<div class="passport-page-date">\u{1F6C2} 登录日期: ' + date + '</div>' +
+      '<div class="passport-leaf-stamp" style="border-color:' + c + '">' +
+        '<div class="passport-leaf-stamp-inner" style="background:' + c + '"></div>' +
+        flagEmoji +
       '</div>' +
+      '<div class="passport-leaf-date">' +
+        '\u{1F4C5} 登录日期: <input type="date" value="' + date + '" onchange="updatePassportDate(\'' + item.name.replace(/'/g,"\\'") + '\',this.value)">' +
+      '</div>' +
+      '<div style="text-align:center;margin-top:6px;font-size:10px;color:#c4beb0">\u{1F6C2} Digital Passport</div>' +
     '</div>';
   });
+  html += '</div>';
+  html += '<div class="passport-nav">' +
+    '<button class="passport-nav-btn" id="passportPrev" onclick="passportPage(-1)">\u25C0</button>' +
+    '<span class="passport-nav-text" id="passportPageNum">第 1 / ' + items.length + ' 页</span>' +
+    '<button class="passport-nav-btn" id="passportNext" onclick="passportPage(1)">\u25B6</button>' +
+  '</div>';
   container.innerHTML = html;
+}
+
+var passportCurrent = 0;
+
+function passportPage(dir) {
+  var leaves = document.querySelectorAll('.passport-leaf');
+  if (!leaves.length) return;
+  leaves[passportCurrent].classList.remove('active');
+  passportCurrent = Math.max(0, Math.min(passportCurrent + dir, leaves.length - 1));
+  leaves[passportCurrent].classList.add('active');
+  document.getElementById('passportPageNum').textContent = '第 ' + (passportCurrent + 1) + ' / ' + leaves.length + ' 页';
+}
+
+function updatePassportDate(name, value) {
+  if (visitedData[name]) {
+    visitedData[name].date = value;
+    localStorage.setItem('owl_travel_data', JSON.stringify(visitedData));
+  }
 }
 
 // ===== 2. FLIGHT ROUTES =====
